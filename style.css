@@ -1,0 +1,36 @@
+/* Customize the advanced audio player's appearance here */
+.audio-player {
+    width: 400px;
+    margin: 20px;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+#current-time, #total-time {
+    margin-top: 10px;
+}
+
+.hero-button{
+    background-color: #76ABAE;
+    color: #EEEEEE;
+}
+.hero-button:hover{
+    background-color: transparent;
+    border-color: #76ABAE;
+}
+
+.hero-button2{
+    background-color: #EEEEEE;
+    color: #76ABAE;
+    border-color: #76ABAE;
+}
+.hero-button2:hover{
+    background-color: #76ABAE;
+    border-color: transparent;
+    color: #EEEEEE;
+}
