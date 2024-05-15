@@ -15,22 +15,13 @@
     margin-top: 10px;
 }
 
-.hero-button{
-    background-color: #76ABAE;
-    color: #EEEEEE;
-}
-.hero-button:hover{
-    background-color: transparent;
-    border-color: #76ABAE;
-}
-
 .hero-button2{
     background-color: #EEEEEE;
-    color: #76ABAE;
-    border-color: #76ABAE;
+    color: #3D3D3D;
+    border-color: #3D3D3D;
 }
 .hero-button2:hover{
-    background-color: #76ABAE;
+    background-color: #3D3D3D;
     border-color: transparent;
     color: #EEEEEE;
 }

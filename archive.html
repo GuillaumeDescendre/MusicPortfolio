@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="id-ID">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+    href="style.css"
+    rel="stylesheet"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+      /* Custom audio player styles */
+      .progress-bar {
+        position: relative;
+        width: 100%;
+        height: 10px;
+        background-color: #ddd;
+        border-radius: 5px;
+      }
+      .progress-bar .progress {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background-color: #4caf50;
+        border-radius: 5px;
+        transition: width 0.1s linear;
+      }
+      /*
+        You may need this for responsive background
+        header {
+            background: url('bg-425.jpg');
+        }
+
+        @media only screen and (min-width:640px) {
+            header {
+                background: url('bg-640.jpg');
+            }
+        }
+
+        @media only screen and (min-width:768px) {
+            header {
+                background: url('bg-768.jpg');
+            }
+        }
+
+        @media only screen and (min-width:1024px) {
+            header {
+                background: url('bg-1024.jpg');
+            }
+        }
+
+        @media only screen and (min-width:1025px) {
+            header {
+                background: url('bg-max.jpg');
+            }
+        } */
+      /* Default background by https://www.pexels.com/@knownasovan */
+      header {
+        background: url("https://images.pexels.com/photos/8198629/pexels-photo-8198629.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+      }
+    </style>
+  </head>
+  <body>
+    <nav
+      id="nav"
+      class="fixed inset-x-0 top-0 flex flex-row justify-between z-10 text-white bg-transparent"
+    >
+      <div class="p-4">
+        <div class="font-extrabold tracking-widest text-xl">
+          <a href="#" class="transition duration-500 hover:text-indigo-500"
+            >MUSIC</a
+          >
+        </div>
+      </div>
+
+      <!-- Nav Items Working on Tablet & Bigger Sceen -->
+      <div class="p-4 hidden md:flex flex-row justify-between font-bold">
+        <a
+          id="hide-after-click"
+          href="#about"
+          class="mx-4 text-lg border-b-2 border-transparent hover:border-b-2 hover:border-indigo-300 transition duration-500"
+          >About</a
+        >
+        <a
+          href="#recent-work"
+          class="mx-4 text-lg border-b-2 border-transparent hover:border-b-2 hover:border-indigo-300 transition duration-500"
+          >My Productions</a
+        >
+      </div>
+
+      <!-- Burger Nav Button on Mobile -->
+      <div id="nav-open" class="p-4 md:hidden">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="feather feather-menu toggle-menu"
+        >
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </div>
+    </nav>
+
+    <!-- Opened Nav in Mobile, you can use javascript/jQuery -->
+    <div
+      id="nav-opened"
+      class="fixed left-0 right-0 hidden bg-white mx-2 mt-16 rounded-br rounded-bl shadow z-10"
+    >
+      <div class="p-2 divide-y divide-gray-600 flex flex-col">
+        <a href="#about" class="p-2 font-semibold hover:text-indigo-700"
+          >About</a
+        >
+        <a href="#recent-work" class="p-2 font-semibold hover:text-indigo-700"
+          >My Work ?</a
+        >
+      </div>
+    </div>
+
+    <header
+      id="up"
+      class="bg-center bg-fixed bg-no-repeat bg-center bg-cover h-screen relative"
+    >
+      <!-- Overlay Background + Center Control -->
+      <div
+        class="h-screen bg-opacity-50 bg-black flex items-center justify-center"
+        style="background: rgba(0, 0, 0, 0.5)"
+      >
+        <div class="mx-2 text-center">
+          <h1
+            class="text-gray-100 font-extrabold text-4xl xs:text-5xl md:text-6xl"
+          >
+            <span class="text-white">Music Productions</span>
+          </h1>
+          <h2
+            class="text-gray-200 font-extrabold text-2xl xs:text-3xl text-center w-3/4 md:text-4xl leading-tight tracking-widest mx-auto"
+          >
+            <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit
+              amet ultricies enim.</span>
+          </h2>
+          <div class="inline-flex">
+            <button
+            class="hero-button p-2 my-5 mx-2  font-bold text-white rounded border-2 border-transparent shadow-md transition duration-500 md:text-xl"
+            >
+              Contact ME!
+            </button>
+            <a href="#recent-work">
+              <button
+              class="hero-button2 p-2 my-5 mx-2 bg-transparent border-2 bg-indigo-200 bg-opacity-75 border-indigo-700 rounded font-bold shadow-md transition duration-500 md:text-lg"
+              >
+                My Productions
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- About Section -->
+    <section id="about" style="background-color: #EEEEEE;" class="py-16">
+      <div
+        class="container mx-auto px-4 flex flex-col items-center justify-center"
+      >
+        <div
+          class="max-w-4xl flex flex-col md:flex-row items-center justify-center"
+        >
+          <!-- About Text -->
+          <div class="text-center md:text-left md:mr-8">
+            <h2 class="text-3xl font-bold mb-4">About Me</h2>
+            <p class="text-gray-700">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit
+              amet ultricies enim. Nullam congue, odio sed feugiat iaculis, est
+              felis vulputate libero, ac fermentum risus mauris nec odio. In hac
+              habitasse platea dictumst.
+            </p>
+          </div>
+          <!-- About Image -->
+          <div class="flex justify-center md:justify-start mt-4 md:mt-0">
+            <img
+              src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg"
+              alt="About Image"
+              class="rounded-full object-cover"
+              width="400px"
+              height="400px"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Recent Work Section -->
+    <section id="recent-work" class="bg-gray-200 py-16">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-8">Recent Work</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Card 1 -->
+          <div class="flex justify-center items-center">
+            <div class="bg-white p-4 rounded-lg shadow-md">
+              <!-- Album Cover -->
+              <img
+                src="./img/drake.jpg"
+                alt="idk - Highvyn, Taylor Shin"
+                class="w-64 h-64 rounded-lg mb-4 shadow-lg shadow-teal-50"
+              />
+              <!-- Song Title -->
+              <h2 class="text-xl font-semibold text-center">God's plan</h2>
+              <!-- Artist Name -->
+              <p class="text-gray-600 text-sm text-center">Drake</p>
+              <!-- Music Controls -->
+              <div class="mt-6 flex justify-center items-center">
+                <button
+                  class="p-3 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none mx-4"
+                  onclick="fastBackward()"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      d="M7.5 10.5L10 8.5V15.5"
+                      stroke="#1C274C"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M12.5 13.75V10.25C12.5 9.2835 13.2835 8.5 14.25 8.5C15.2165 8.5 16 9.2835 16 10.25V13.75C16 14.7165 15.2165 15.5 14.25 15.5C13.2835 15.5 12.5 14.7165 12.5 13.75Z"
+                      stroke="#1C274C"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M14 4.5L12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C8.7288 22 5.82446 20.4293 4 18.001M8 2.83209C6.87754 3.32251 5.86251 4.01303 5 4.85857C3.14864 6.67349 2 9.20261 2 12C2 12.6849 2.06886 13.3538 2.20004 14"
+                      stroke="#1C274C"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  <!-- Fast Backward -->
+                </button>
+                <button
+                  class="p-3 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none"
+                  id="playPauseButton"
+                  onclick="togglePlayPause()"
+                >
+                  <!-- Play icon -->
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      xmlns="http://www.w3.org/2000/svg"
+                      d="M16.6582 9.28638C18.098 10.1862 18.8178 10.6361 19.0647 11.2122C19.2803 11.7152 19.2803 12.2847 19.0647 12.7878C18.8178 13.3638 18.098 13.8137 16.6582 14.7136L9.896 18.94C8.29805 19.9387 7.49907 20.4381 6.83973 20.385C6.26501 20.3388 5.73818 20.0469 5.3944 19.584C5 19.053 5 18.1108 5 16.2264V7.77357C5 5.88919 5 4.94701 5.3944 4.41598C5.73818 3.9531 6.26501 3.66111 6.83973 3.6149C7.49907 3.5619 8.29805 4.06126 9.896 5.05998L16.6582 9.28638Z"
+                      stroke="#000000"
+                      stroke-width="2"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+                <button
+                  class="p-3 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none mx-4"
+                  onclick="fastForward()"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      d="M7.5 10.5L10 8.5V15.5"
+                      stroke="#000000"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M10 4.5L12 2C6.47715 2 2 6.47715 2 12C2 12.6849 2.06886 13.3538 2.20004 14M16 2.83209C19.5318 4.3752 22 7.89936 22 12C22 17.5228 17.5228 22 12 22C8.72852 22 5.82443 20.4287 4 18"
+                      stroke="#1C274C"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M12.5 13.75V10.25C12.5 9.2835 13.2835 8.5 14.25 8.5C15.2165 8.5 16 9.2835 16 10.25V13.75C16 14.7165 15.2165 15.5 14.25 15.5C13.2835 15.5 12.5 14.7165 12.5 13.75Z"
+                      stroke="#000000"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                  <!-- Fast Forward -->
+                </button>
+              </div>
+              <!-- Progress Bar -->
+              <div class="mt-6 progress-bar" id="progressBar" onclick="seek(event)">
+                <div
+                  id="progress"
+                  class="progress bg-teal-500 h-2 rounded-full"
+                  style="width: 0"
+                ></div>
+              </div>
+              <!-- Time Information -->
+              <div class="flex justify-between mt-2 text-sm text-gray-600">
+                <span id="currentTime">0:00</span>
+                <span id="duration">0:00</span>
+              </div>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="flex justify-center items-center">
+            <div class="bg-white p-4 rounded-lg shadow-md">
+              <!-- Album Cover -->
+              <img
+                src="https://telegra.ph/file/2acfcad8d39e49d95addd.jpg"
+                alt="idk - Highvyn, Taylor Shin"
+                class="w-64 h-64 rounded-lg mb-4 shadow-lg shadow-teal-50"
+              />
+              <!-- Song Title -->
+              <h2 class="text-xl font-semibold text-center">music title</h2>
+              <!-- Artist Name -->
+              <p class="text-gray-600 text-sm text-center">Artist</p>
+              <!-- Music Controls -->
+              <div class="mt-6 flex justify-center items-center">
+                <button
+                  class="p-3 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none mx-4"
+                  onclick="fastBackward()"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      d="M7.5 10.5L10 8.5V15.5"
+                      stroke="#1C274C"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M12.5 13.75V10.25C12.5 9.2835 13.2835 8.5 14.25 8.5C15.2165 8.5 16 9.2835 16 10.25V13.75C16 14.7165 15.2165 15.5 14.25 15.5C13.2835 15.5 12.5 14.7165 12.5 13.75Z"
+                      stroke="#1C274C"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M14 4.5L12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C8.7288 22 5.82446 20.4293 4 18.001M8 2.83209C6.87754 3.32251 5.86251 4.01303 5 4.85857C3.14864 6.67349 2 9.20261 2 12C2 12.6849 2.06886 13.3538 2.20004 14"
+                      stroke="#1C274C"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  <!-- Fast Backward -->
+                </button>
+                <button
+                  class="p-3 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none"
+                  id="playPauseButton"
+                  onclick="togglePlayPause()"
+                >
+                  <!-- Play icon -->
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      xmlns="http://www.w3.org/2000/svg"
+                      d="M16.6582 9.28638C18.098 10.1862 18.8178 10.6361 19.0647 11.2122C19.2803 11.7152 19.2803 12.2847 19.0647 12.7878C18.8178 13.3638 18.098 13.8137 16.6582 14.7136L9.896 18.94C8.29805 19.9387 7.49907 20.4381 6.83973 20.385C6.26501 20.3388 5.73818 20.0469 5.3944 19.584C5 19.053 5 18.1108 5 16.2264V7.77357C5 5.88919 5 4.94701 5.3944 4.41598C5.73818 3.9531 6.26501 3.66111 6.83973 3.6149C7.49907 3.5619 8.29805 4.06126 9.896 5.05998L16.6582 9.28638Z"
+                      stroke="#000000"
+                      stroke-width="2"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+                <button
+                  class="p-3 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none mx-4"
+                  onclick="fastForward()"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      d="M7.5 10.5L10 8.5V15.5"
+                      stroke="#000000"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M10 4.5L12 2C6.47715 2 2 6.47715 2 12C2 12.6849 2.06886 13.3538 2.20004 14M16 2.83209C19.5318 4.3752 22 7.89936 22 12C22 17.5228 17.5228 22 12 22C8.72852 22 5.82443 20.4287 4 18"
+                      stroke="#1C274C"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M12.5 13.75V10.25C12.5 9.2835 13.2835 8.5 14.25 8.5C15.2165 8.5 16 9.2835 16 10.25V13.75C16 14.7165 15.2165 15.5 14.25 15.5C13.2835 15.5 12.5 14.7165 12.5 13.75Z"
+                      stroke="#000000"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                  <!-- Fast Forward -->
+                </button>
+              </div>
+              <!-- Progress Bar -->
+              <div class="mt-6 progress-bar" id="progressBar" onclick="seek(event)">
+                <div
+                  id="progress"
+                  class="progress bg-teal-500 h-2 rounded-full"
+                  style="width: 0"
+                ></div>
+              </div>
+              <!-- Time Information -->
+              <div class="flex justify-between mt-2 text-sm text-gray-600">
+                <span id="currentTime">0:00</span>
+                <span id="duration">0:00</span>
+              </div>
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <!-- Custom Audio Player -->
+    <div class="flex justify-center items-center">
+      <div class="bg-white p-4 rounded-lg shadow-md">
+        <!-- Album Cover -->
+        <img
+          src="./img/nirvana.webp"
+          alt="idk - Highvyn, Taylor Shin"
+          class="w-64 h-64 rounded-lg mb-4 shadow-lg shadow-teal-50"
+        />
+        <!-- Song Title -->
+        <h2 class="text-xl font-semibold text-center">another song</h2>
+        <!-- Artist Name -->
+        <p class="text-gray-600 text-sm text-center">different artist</p>
+        <!-- Music Controls -->
+        <div class="mt-6 flex justify-center items-center">
+          <button
+            class="p-3 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none mx-4"
+            onclick="fastBackward()"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                d="M7.5 10.5L10 8.5V15.5"
+                stroke="#1C274C"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M12.5 13.75V10.25C12.5 9.2835 13.2835 8.5 14.25 8.5C15.2165 8.5 16 9.2835 16 10.25V13.75C16 14.7165 15.2165 15.5 14.25 15.5C13.2835 15.5 12.5 14.7165 12.5 13.75Z"
+                stroke="#1C274C"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+              <path
+                d="M14 4.5L12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C8.7288 22 5.82446 20.4293 4 18.001M8 2.83209C6.87754 3.32251 5.86251 4.01303 5 4.85857C3.14864 6.67349 2 9.20261 2 12C2 12.6849 2.06886 13.3538 2.20004 14"
+                stroke="#1C274C"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <!-- Fast Backward -->
+          </button>
+          <button
+            class="p-3 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none"
+            id="playPauseButton"
+            onclick="togglePlayPause()"
+          >
+            <!-- Play icon -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                xmlns="http://www.w3.org/2000/svg"
+                d="M16.6582 9.28638C18.098 10.1862 18.8178 10.6361 19.0647 11.2122C19.2803 11.7152 19.2803 12.2847 19.0647 12.7878C18.8178 13.3638 18.098 13.8137 16.6582 14.7136L9.896 18.94C8.29805 19.9387 7.49907 20.4381 6.83973 20.385C6.26501 20.3388 5.73818 20.0469 5.3944 19.584C5 19.053 5 18.1108 5 16.2264V7.77357C5 5.88919 5 4.94701 5.3944 4.41598C5.73818 3.9531 6.26501 3.66111 6.83973 3.6149C7.49907 3.5619 8.29805 4.06126 9.896 5.05998L16.6582 9.28638Z"
+                stroke="#000000"
+                stroke-width="2"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <button
+            class="p-3 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none mx-4"
+            onclick="fastForward()"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                d="M7.5 10.5L10 8.5V15.5"
+                stroke="#000000"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M10 4.5L12 2C6.47715 2 2 6.47715 2 12C2 12.6849 2.06886 13.3538 2.20004 14M16 2.83209C19.5318 4.3752 22 7.89936 22 12C22 17.5228 17.5228 22 12 22C8.72852 22 5.82443 20.4287 4 18"
+                stroke="#1C274C"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M12.5 13.75V10.25C12.5 9.2835 13.2835 8.5 14.25 8.5C15.2165 8.5 16 9.2835 16 10.25V13.75C16 14.7165 15.2165 15.5 14.25 15.5C13.2835 15.5 12.5 14.7165 12.5 13.75Z"
+                stroke="#000000"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+            <!-- Fast Forward -->
+          </button>
+        </div>
+        <!-- Progress Bar -->
+        <div class="mt-6 progress-bar" id="progressBar" onclick="seek(event)">
+          <div
+            id="progress"
+            class="progress bg-teal-500 h-2 rounded-full"
+            style="width: 0"
+          ></div>
+        </div>
+        <!-- Time Information -->
+        <div class="flex justify-between mt-2 text-sm text-gray-600">
+          <span id="currentTime">0:00</span>
+          <span id="duration">0:00</span>
+        </div>
+      </div>
+        </div>
+      </div>
+      <!-- List of Songs -->
+<div class="flex justify-center items-center">
+  <div class="bg-white p-4 rounded-lg shadow-md">
+    <h2 class="text-3xl font-bold mb-4">List of Songs</h2>
+    <ul id="songList" class="text-gray-600 text-sm">
+      <li class="song" data-src="Drake.mp3" data-img="./img/drake.jpg" data-title="God's Plan" data-artist="Drake">God's Plan</li>
+      <li class="song" data-src="Nirvana.mp3" data-img="./img/nirvana.webp" data-title="Another Song" data-artist="Different Artist">Nirvana</li>
+      <!-- Add more songs as needed -->
+    </ul>
+  </div>
+</div>
+
+<!-- Card -->
+<div class="flex justify-center items-center mt-8" id="songDetails">
+  <!-- Card Content Will Be Updated Dynamically -->
+</div>
+    </section>
+
+
+    <script>
+      $(document).ready(function () {
+        $("#nav-open").click(function () {
+          $("#nav-opened").toggleClass("hidden");
+        });
+      });
+    </script>
+    <script>
+    const audio = new Audio("Drake.mp3"); // Replace 'your-audio-file.mp3' with your audio file name
+    let isPlaying = false;
+
+    function togglePlayPause() {
+      if (isPlaying) {
+        pauseAudio();
+      } else {
+        playAudio();
+      }
+    }
+
+    function playAudio() {
+      audio.play();
+      isPlaying = true;
+      document.getElementById("playPauseButton").innerHTML = `
+          <!-- Pause icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path xmlns="http://www.w3.org/2000/svg" d="M8 5V19M16 5V19" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>            </svg>
+      `;
+      updateProgress();
+    }
+
+    function pauseAudio() {
+      audio.pause();
+      isPlaying = false;
+      document.getElementById("playPauseButton").innerHTML = `
+          <!-- Play icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path xmlns="http://www.w3.org/2000/svg" d="M16.6582 9.28638C18.098 10.1862 18.8178 10.6361 19.0647 11.2122C19.2803 11.7152 19.2803 12.2847 19.0647 12.7878C18.8178 13.3638 18.098 13.8137 16.6582 14.7136L9.896 18.94C8.29805 19.9387 7.49907 20.4381 6.83973 20.385C6.26501 20.3388 5.73818 20.0469 5.3944 19.584C5 19.053 5 18.1108 5 16.2264V7.77357C5 5.88919 5 4.94701 5.3944 4.41598C5.73818 3.9531 6.26501 3.66111 6.83973 3.6149C7.49907 3.5619 8.29805 4.06126 9.896 5.05998L16.6582 9.28638Z" stroke="#000000" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+      `;
+    }
+
+    function stopAudio() {
+      audio.pause();
+      audio.currentTime = 0;
+      isPlaying = false;
+      document.getElementById("playPauseButton").innerHTML = `
+          <!-- Play icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path xmlns="http://www.w3.org/2000/svg" d="M16.6582 9.28638C18.098 10.1862 18.8178 10.6361 19.0647 11.2122C19.2803 11.7152 19.2803 12.2847 19.0647 12.7878C18.8178 13.3638 18.098 13.8137 16.6582 14.7136L9.896 18.94C8.29805 19.9387 7.49907 20.4381 6.83973 20.385C6.26501 20.3388 5.73818 20.0469 5.3944 19.584C5 19.053 5 18.1108 5 16.2264V7.77357C5 5.88919 5 4.94701 5.3944 4.41598C5.73818 3.9531 6.26501 3.66111 6.83973 3.6149C7.49907 3.5619 8.29805 4.06126 9.896 5.05998L16.6582 9.28638Z" stroke="#000000" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+      `;
+    }
+
+    function fastForward() {
+      audio.currentTime += 10; // Fast forward 10 seconds
+    }
+
+    function fastBackward() {
+      audio.currentTime -= 10; // Fast backward 10 seconds
+    }
+
+    function updateProgress() {
+      const progress = document.querySelector(".progress");
+      const currentTime = document.getElementById("currentTime");
+      const duration = document.getElementById("duration");
+
+      const progressPercent = (audio.currentTime / audio.duration) * 100;
+      progress.style.width = `${progressPercent}%`;
+
+      const currentMinutes = Math.floor(audio.currentTime / 60);
+      let currentSeconds = Math.floor(audio.currentTime % 60);
+      currentSeconds =
+        currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds;
+      currentTime.textContent = `${currentMinutes}:${currentSeconds}`;
+
+      const durationMinutes = Math.floor(audio.duration / 60);
+      let durationSeconds = Math.floor(audio.duration % 60);
+      durationSeconds =
+        durationSeconds < 10 ? `0${durationSeconds}` : durationSeconds;
+      duration.textContent = `${durationMinutes}:${durationSeconds}`;
+    }
+
+    function seek(event) {
+      const progressBar = document.getElementById("progressBar");
+      const rect = progressBar.getBoundingClientRect();
+      const offsetX = event.clientX - rect.left;
+      const progressBarWidth = progressBar.clientWidth;
+      const seekTime = (offsetX / progressBarWidth) * audio.duration;
+      audio.currentTime = seekTime;
+      updateProgress();
+    }
+
+    audio.addEventListener("timeupdate", updateProgress);
+
+    // Function to handle song selection
+$(document).on("click", ".song", function () {
+  let songSrc = $(this).data("src");
+  let songImg = $(this).data("img");
+  let songTitle = $(this).data("title");
+  let songArtist = $(this).data("artist");
+
+  updateCard(songSrc, songImg, songTitle, songArtist);
+});
+
+// Function to update the card with song details
+function updateCard(src, img, title, artist) {
+  let cardContent = `
+    <div class="bg-white p-4 rounded-lg shadow-md">
+      <img src="${img}" alt="${title}" class="w-64 h-64 rounded-lg mb-4 shadow-lg shadow-teal-50" />
+      <h2 class="text-xl font-semibold text-center">${title}</h2>
+      <p class="text-gray-600 text-sm text-center">${artist}</p>
+      <div class="mt-6 flex justify-center items-center">
+          <button
+            class="p-3 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none mx-4"
+            onclick="fastBackward()"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                d="M7.5 10.5L10 8.5V15.5"
+                stroke="#1C274C"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M12.5 13.75V10.25C12.5 9.2835 13.2835 8.5 14.25 8.5C15.2165 8.5 16 9.2835 16 10.25V13.75C16 14.7165 15.2165 15.5 14.25 15.5C13.2835 15.5 12.5 14.7165 12.5 13.75Z"
+                stroke="#1C274C"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+              <path
+                d="M14 4.5L12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C8.7288 22 5.82446 20.4293 4 18.001M8 2.83209C6.87754 3.32251 5.86251 4.01303 5 4.85857C3.14864 6.67349 2 9.20261 2 12C2 12.6849 2.06886 13.3538 2.20004 14"
+                stroke="#1C274C"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <!-- Fast Backward -->
+          </button>
+          <button
+            class="p-3 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none"
+            id="playPauseButton"
+            onclick="togglePlayPause()"
+          >
+            <!-- Play icon -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                xmlns="http://www.w3.org/2000/svg"
+                d="M16.6582 9.28638C18.098 10.1862 18.8178 10.6361 19.0647 11.2122C19.2803 11.7152 19.2803 12.2847 19.0647 12.7878C18.8178 13.3638 18.098 13.8137 16.6582 14.7136L9.896 18.94C8.29805 19.9387 7.49907 20.4381 6.83973 20.385C6.26501 20.3388 5.73818 20.0469 5.3944 19.584C5 19.053 5 18.1108 5 16.2264V7.77357C5 5.88919 5 4.94701 5.3944 4.41598C5.73818 3.9531 6.26501 3.66111 6.83973 3.6149C7.49907 3.5619 8.29805 4.06126 9.896 5.05998L16.6582 9.28638Z"
+                stroke="#000000"
+                stroke-width="2"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <button
+            class="p-3 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none mx-4"
+            onclick="fastForward()"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                d="M7.5 10.5L10 8.5V15.5"
+                stroke="#000000"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M10 4.5L12 2C6.47715 2 2 6.47715 2 12C2 12.6849 2.06886 13.3538 2.20004 14M16 2.83209C19.5318 4.3752 22 7.89936 22 12C22 17.5228 17.5228 22 12 22C8.72852 22 5.82443 20.4287 4 18"
+                stroke="#1C274C"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M12.5 13.75V10.25C12.5 9.2835 13.2835 8.5 14.25 8.5C15.2165 8.5 16 9.2835 16 10.25V13.75C16 14.7165 15.2165 15.5 14.25 15.5C13.2835 15.5 12.5 14.7165 12.5 13.75Z"
+                stroke="#000000"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+            <!-- Fast Forward -->
+          </button>
+        </div>
+        <!-- Progress Bar -->
+        <div class="mt-6 progress-bar" id="progressBar" onclick="seek(event)">
+          <div
+            id="progress"
+            class="progress bg-teal-500 h-2 rounded-full"
+            style="width: 0"
+          ></div>
+        </div>
+        <!-- Time Information -->
+        <div class="flex justify-between mt-2 text-sm text-gray-600">
+          <span id="currentTime">0:00</span>
+          <span id="duration">0:00</span>
+        </div>
+      </div>
+    </div>
+  `;
+
+  $("#songDetails").html(cardContent);
+}
+  </script>
+  </body>
+</html>
