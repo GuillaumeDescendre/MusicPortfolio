@@ -56,21 +56,39 @@
                 background: url('bg-max.jpg');
             }
         } */
-      /* Default background by https://www.pexels.com/@knownasovan */
-      header {
-        background: url("https://images.pexels.com/photos/8198629/pexels-photo-8198629.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+      /* Apply background image to body */
+      @media only screen and (max-width: 640px) {
+  /* Apply styles only for viewports up to 640px width */
+  #nav {
+    background-color: rgba(0, 0, 0, 0.7); /* Black color with 50% transparency */
+  }
+}
+      body {
+        /* Linear gradient from transparent to black */
+        background: linear-gradient(to bottom, transparent, black),
+          url("https://images.pexels.com/photos/8198629/pexels-photo-8198629.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+      }
+
+      /* Transparent header and recent work section */
+      header,
+      #recent-work,
+      #about {
+        background-color: rgba(0, 0, 0, 0.65);
       }
     </style>
   </head>
   <body>
     <nav
       id="nav"
-      class="fixed inset-x-0 top-0 flex flex-row justify-between z-10 text-white bg-transparent"
+      class="fixed inset-x-0 top-0 flex flex-row justify-between text-white z-10 xs:bg-black"
     >
       <div class="p-4">
         <div class="font-extrabold tracking-widest text-xl">
           <a href="#" class="transition duration-500 hover:text-indigo-500"
-            >BLACK STAFFORD STUDIOS</a
+            >BLACK STAFFORD </br>STUDIOS</a
           >
         </div>
       </div>
@@ -78,15 +96,15 @@
       <!-- Nav Items Working on Tablet & Bigger Sceen -->
       <div class="p-4 hidden md:flex flex-row justify-between font-bold">
         <a
+        href="#recent-work"
+        class="mx-4 text-lg border-b-2 border-transparent hover:border-b-2 hover:border-indigo-300 transition duration-500"
+        >My Productions</a
+      >
+        <a
           id="hide-after-click"
           href="#about"
           class="mx-4 text-lg border-b-2 border-transparent hover:border-b-2 hover:border-indigo-300 transition duration-500"
-          >About</a
-        >
-        <a
-          href="#recent-work"
-          class="mx-4 text-lg border-b-2 border-transparent hover:border-b-2 hover:border-indigo-300 transition duration-500"
-          >My Productions</a
+          >Contact me</a
         >
       </div>
 
@@ -114,27 +132,24 @@
     <!-- Opened Nav in Mobile, you can use javascript/jQuery -->
     <div
       id="nav-opened"
-      class="fixed left-0 right-0 hidden bg-white mx-2 mt-16 rounded-br rounded-bl shadow z-10"
+      class="fixed left-0 right-0 hidden bg-white mx-2 mt-20 rounded shadow z-10"
     >
       <div class="p-2 divide-y divide-gray-600 flex flex-col">
         <a href="#about" class="p-2 font-semibold hover:text-indigo-700"
-          >About</a
+          >Contact me</a
         >
         <a href="#recent-work" class="p-2 font-semibold hover:text-indigo-700"
-          >My Work ?</a
+          >My productions ?</a
         >
       </div>
     </div>
 
     <header
       id="up"
-      class="bg-center bg-fixed bg-no-repeat bg-center bg-cover h-screen relative"
+      class="bg-center bg-fixed bg-no-repeat bg-center bg-cover relative"
     >
       <!-- Overlay Background + Center Control -->
-      <div
-        class="h-screen bg-opacity-50 bg-black flex items-center justify-center"
-        style="background: rgba(0, 0, 0, 0.5)"
-      >
+      <div class="flex items-center justify-center py-32">
         <div class="mx-2 text-center">
           <h1
             class="text-gray-100 font-extrabold text-4xl xs:text-5xl md:text-6xl mb-4"
@@ -144,7 +159,7 @@
             <span class="text-white">STUDIOS</span>
           </h1>
           <h2
-            class="text-gray-200 font-extrabold text-2xl xs:text-3xl text-center w-3/4 md:text-4xl tracking-widest mx-auto"
+            class="text-gray-200 font-extrabold text-2xl  xs:text-3xl text-center md:w-3/4 md:text-4xl tracking-widest mx-auto"
           >
             <span
               >My goal for you is to get booked for more shows, get more streams
@@ -152,29 +167,17 @@
               crank the gain together for max potential!</span
             >
           </h2>
-          <div class="inline-flex">
-            <a href="#recent-work">
-              <button
-                class="hero-button2 p-2 my-5 mx-2 bg-transparent border-2 bg-grey-200 bg-opacity-75 border-gray-700 rounded font-bold shadow-md transition duration-500 md:text-lg"
-              >
-                CONTACT ME!
-              </button>
-            </a>
-          </div>
         </div>
       </div>
     </header>
-
     <!-- Recent Work Section -->
-    <section id="recent-work" class="bg-gray-600 py-8">
-      <div class="container mx-auto px-4">
-        <h2 class="text-white text-3xl font-bold text-center mb-8">
-          MY RECENT WORK
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
-      </div>
+    <section id="recent-work" class="bg-gray-600 pb-16 relative">
+      <h2 class="text-3xl text-white font-bold text-center mb-8">
+        MY RECENT WORK
+      </h2>
+
       <!-- Card -->
-      <div class="flex justify-center items-center mt-8">
+      <div class="flex justify-center items-center">
         <div class="bg-white p-4 rounded-lg shadow-md">
           <div id="songDetails"></div>
           <ul id="songList" class="text-gray-600 text-sm my-4">
@@ -196,19 +199,36 @@
               </div>
             </li>
             <li
+            class="song"
+            data-src="Dumb.mp3"
+            data-img="./img/nirvana.webp"
+            data-title="Dumb"
+            data-artist="Nirvana"
+          >
+            <div class="flex border-b-2 py-2 justify-between">
+              <div class="flex">
+                <h2 class="font-bold">3</h2>
+                <h2 class="font-bold mx-2">Nirvana - Dumb</h2>
+              </div>
+              <div>
+                <h2 class="font-bold">2:28</h2>
+              </div>
+            </div>
+          </li>
+            <li
               class="song"
-              data-src="Nirvana.mp3"
-              data-img="./img/nirvana.webp"
-              data-title="Smells like teen spirit"
-              data-artist="Nirvana"
+              data-src="monkeys.mp3"
+              data-img="./img/drake.jpg"
+              data-title="Do I wanna know"
+              data-artist="Arctic monkeys"
             >
               <div class="flex border-b-2 py-2 justify-between">
                 <div class="flex">
-                  <h2 class="font-bold">2</h2>
-                  <h2 class="font-bold mx-2">Nirvana</h2>
+                  <h2 class="font-bold">4</h2>
+                  <h2 class="font-bold mx-2">Do I wanna know</h2>
                 </div>
                 <div>
-                  <h2 class="font-bold">4:40</h2>
+                  <h2 class="font-bold">3:20</h2>
                 </div>
               </div>
             </li>
@@ -221,7 +241,7 @@
       <!-- Single audio element for playing songs -->
     </section>
     <!-- About Section -->
-    <section id="about" style="background-color: #eeeeee" class="py-16">
+    <section id="about" class="py-16">
       <div
         class="container mx-auto px-4 flex flex-col items-center justify-center"
       >
@@ -230,27 +250,29 @@
         >
           <!-- About Text -->
           <div class="text-center md:text-left md:mr-16">
-            <h2 class="text-3xl font-bold mb-4">LET'S MAKE SOME MUSIC</h2>
+            <h2 class="text-3xl text-white font-bold mb-4">
+              LET'S MAKE SOME MUSIC
+            </h2>
 
             <form class="max-w-sm mx-auto">
               <div class="mb-5">
                 <label
                   for="email"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  class="block mb-2 text-sm font-medium text-white dark:text-white"
                   >Your email</label
                 >
                 <input
                   type="email"
                   id="email"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="name@flowbite.com"
+                  placeholder="name@email.com"
                   required
                 />
               </div>
               <div class="mb-5">
                 <label
                   for="message"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  class="block mb-2 text-sm font-medium text-white dark:text-white"
                   >Your message</label
                 >
                 <input
@@ -284,7 +306,7 @@
     <script>
       $(document).ready(function () {
         // Trigger click event on the first song element
-        $(".song:first").trigger("click");
+        $(".song:nth-child(2)").trigger("click");
 
         $("#nav-open").click(function () {
           $("#nav-opened").toggleClass("hidden");
@@ -292,7 +314,7 @@
       });
     </script>
     <script>
-      const audio = new Audio("Drake.mp3"); // Replace 'your-audio-file.mp3' with your audio file name
+      const audio = new Audio(); // Replace 'your-audio-file.mp3' with your audio file name
       let isPlaying = false;
 
       function togglePlayPause() {
@@ -367,6 +389,7 @@
       }
 
       function seek(event) {
+        console.log(audio);
         const progressBar = document.getElementById("progressBar");
         const rect = progressBar.getBoundingClientRect();
         const offsetX = event.clientX - rect.left;
@@ -393,6 +416,8 @@
       function updateAudioPlayer(src) {
         audio.src = src;
         audio.load();
+        console.log(audio);
+        console.log(audio.duration);
       }
 
       // Function to update the card with song details
