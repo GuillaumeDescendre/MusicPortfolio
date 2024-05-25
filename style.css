@@ -25,3 +25,15 @@
     border-color: transparent;
     color: #EEEEEE;
 }
+
+.insta{
+    color: #fbbf24;
+}
+
+.amber:hover{
+    color: #fbbf24;
+}
+
+.submitbtn{
+    background-color: #fbbf24;
+}
